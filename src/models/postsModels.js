@@ -7,3 +7,9 @@ export async function getAllPosts(){
     const result = db.collection("posts");
     return result.find().toArray();
 }
+
+export async function cretePost(newPost) {
+    const db = connect.db("imersao-instabytes");
+    const collection = db.collection("posts");
+    return collection.insertOne(newPost);
+}
