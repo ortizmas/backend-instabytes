@@ -6,6 +6,11 @@ const posts = [
     { id: 3, descricao: "Gato fazendo panqueca", imagem: "https://placecats.com/millie/300/150"},
 ];
 
+const images = posts.map(image => ({
+    ...image,
+    uuid: 222
+}));
+
 const app = express();
 app.use(express.json());
 
