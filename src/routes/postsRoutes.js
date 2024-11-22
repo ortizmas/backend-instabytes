@@ -5,6 +5,12 @@ import {
 	newPost,
 	uploadImage,
 } from "../controllers/postsController.js";
+import cors from "cors";
+
+const corsOptions = {
+    origin: "http://localhost:8000",
+    optionsSuccessStatus: 200
+  }
 
 // Configura o armazenamento do Multer para uploads de imagens
 const storage = multer.diskStorage({
@@ -26,12 +32,15 @@ const upload = multer({storage: storage});
 // Define as rotas usando o objeto Express app
 const routes = (app) => {
 	app.use(express.json());
+    app.use(cors(corsOptions));
 
 	app.get("/posts", listPosts);
 	app.post("/posts", newPost);
 
     // Rota para upload de imagens (assumindo uma única imagem chamada "imagem")
 	app.post("/upload", upload.single("imagem"), uploadImage); // Chama a função controladora para processamento da imagem
+
+    app.put("/upload/:id", updateNewPost)
 };
 
 export default routes;
